@@ -10,7 +10,7 @@ import requests
 import pprint
 from bsedata.bse import BSE
 from typing import Literal
-import os
+import os 
 
 class Portfolio_manager:
     def __init__(self) -> None:
@@ -18,19 +18,11 @@ class Portfolio_manager:
         self.password='Test@1234'
         self.main_url="https://www.screener.in/"
         self.login_url=self.main_url + 'login/?'
-        # Establish a connection to the PostgreSQL database
-        # self.conn = psycopg2.connect(
-        #     dbname="yash_db",
-        #     user="yash",
-        #     password="test",
-        #     host="localhost",
-        #     port="5433"
-        # )
         self.dbname="yash_db"
         self.user="yash"
         self.password="test"
         # self.host="localhost",
-        self.host="172.17.208.1"
+        self.host="172.29.0.1"
         self.port="5433"
 
         # self.alpha_api_key='ZT190HZDN99BS851'
@@ -65,22 +57,6 @@ class Portfolio_manager:
         except psycopg2.Error as e:
             print("Error: Unable to insert data")
             print(e)
-
-
-    # Function to insert JSON data into the table
-    # def insert_json(self, schema, table, json_data, record_source):
-        # try:
-        #     # Connect to the PostgreSQL database
-        #     conn = psycopg2.connect(dbname=self.dbname, user=self.user, password=self.password, host=self.host, port=self.port)
-        #     cursor = conn.cursor()
-        #     insert_query = f"INSERT INTO {schema}.{table} VALUES (%s,%s);"
-        #     cursor.execute(insert_query, (json.dumps(json_data),record_source))
-        #     conn.commit()
-        #     cursor.close()
-        #     print(f"Successfully inserted into {schema}.{table} !!!")
-        # except psycopg2.Error as e:
-        #     print("Error: Unable to insert JSON data")
-        #     print(e)
 
     def csv_db_ingestion(self, schema, table, csv_filename):
         # Connect to the PostgreSQL database
@@ -132,7 +108,6 @@ class Portfolio_manager:
         return rows
     
     def get_latest_alpha_data(self,stock_list,):
-
         query=self.file_reader('','biz_stock_list','sql')
         stock_list=self.get_query_result(query)
         json_data1=[]
@@ -157,9 +132,6 @@ class Portfolio_manager:
             print(url)
             # json_list.append(json_data)
             self.file_writer(f'hist_upstox_{data_freq}_{row[0]}_{date.today()}','json',json_data)
-            # with open(f'bucket/progress/hist_upstox_{data_freq}_{row[0]}_{date.today()}.json','w') as file:
-            #     file.write(json.dumps(json_data))
-            # self.insert_json( "load", "load_stock", json_data, f"hist_upstox_{row[0]}_{date.today()}")
 
     def screener_webscrapping(self):
         driver = webdriver.Chrome()
@@ -221,29 +193,12 @@ class Portfolio_manager:
         print('compare_stock_list()')
         query=self.file_reader('ddl','biz','Diff_stage_screener_biz_stock_data','sql')
 
-        # with open('Diff_stage_screener_biz_stock_data.sql', 'r') as file:
-        #     query = file.read()
         result=self.get_query_result(query)
-        # self.query_result(query)
         # print(list(map(lambda x: x[0], result)))
         if len(result)>0:
-            # self.get_hist_stock_data(result)
             self.get_hist_upstox_data(result,'day')
             self.get_hist_upstox_data(result,'month')
         self.get_latest_bse_data(result)
-
-    # def get_hist_stock_data(self, stock_list):
-        # for symbol in list(map(lambda x: x[0], stock_list)):
-        #     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}.BSE&outputsize=full&apikey=' + 'ZT190HZDN99BS851'
-        #     r = requests.get(url)
-        #     json_data = r.json()
-        #     # data = r.json()
-        #     print(url)
-        #     self.file_writer(f'hist_alpha_{symbol}_{date.today()}','json',json_data)
-            # with open(f'bucket/progress/hist_alpha_{symbol}_{date.today()}.json','w') as file:
-            #     file.write(json.dumps(json_data))
-        
-        # self.insert_json( "load", "load_stock", json_data, f"hist_alpha_{symbol}_{date.today()}")
 
     def get_latest_bse_data(self,hist_list):
     # Output:
@@ -354,22 +309,9 @@ x= Portfolio_manager()
 # x.process_screener_data()
 # x.get_latest_bse_data()
 # x.db_ingestion()
-x.compare_stock_list()
+# x.compare_stock_list()
 # x.visualize()
 # x.truncateLoadTable()
 # x.populateLoadTable()
-# x.load_json_files('bucket/progress/')
-
-
-
-
-
-
-
-
-
-
-
-
-
+x.load_json_files('bucket/progress/')
 
