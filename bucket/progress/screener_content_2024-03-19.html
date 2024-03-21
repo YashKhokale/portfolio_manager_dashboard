@@ -1,0 +1,844 @@
+<body class="light flex-column">
+    <nav class="u-full-width no-print">
+      <div id="mobile-search">
+  <div class="has-addon left-addon dropdown-typeahead">
+  <i class="addon icon-search"></i>
+  <input aria-label="Search for a company" type="search" autocomplete="off" spellcheck="false" placeholder="Search for a company" class="u-full-width" data-company-search="true" style="margin-bottom: 0px;">
+<ul class="dropdown-content"></ul></div>
+
+</div>
+
+<ul class="bottom-menu-bar hide-from-tablet-landscape">
+  
+  <li class="">
+    <a href="/">
+      <i class="icon-home_alt_outline"></i>
+      <br>
+      Home
+    </a>
+  </li>
+  
+
+  <li class="active">
+    <a href="/explore/">
+      <i class="icon-screens"></i>
+      <br>
+      Screens
+    </a>
+  </li>
+
+  <li>
+    <button type="button" onclick="MobileMenu.toggleSearch(this)" class="search-button" title="Search">
+      <i class="icon-search" style="font-size: 18px"></i>
+    </button>
+  </li>
+
+  <li>
+    <button class="button-plain" onclick="Modal.showInModal('#nav-tools-menu')">
+      <i class="icon-tools"></i>
+      <br>
+      Tools
+    </button>
+  </li>
+
+  
+  <li class="">
+    <a href="/register/?">
+      <i class="icon-user-plus"></i>
+      <br>
+      Login
+    </a>
+  </li>
+  
+</ul>
+
+      <div class="top-nav-holder">
+        <div class="container">
+
+
+
+<div class="layer-holder top-navigation">
+  <div class="layer flex flex-space-between" style="align-items: center;
+              height: 50px">
+    <div class="flex" style="align-items: center">
+      <a href="/" class="logo-holder">
+        <img alt="Screener Logo" class="logo" src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg">
+      </a>
+
+      <div class="desktop-links" style="margin-left: 48px">
+        <a href="/">
+          
+            Home
+          
+        </a>
+        <a href="/explore/">Screens</a>
+        <div class="dropdown-menu">
+          <button class="button-plain" type="button" onclick="Utils.toggleDropdown(event)">
+            Tools
+            <i class="icon-down"></i>
+          </button>
+          <ul class="dropdown-content flex-column tools-menu" style="width: 350px" id="nav-tools-menu">
+            <li>
+              <a href="/screen/new/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/screens.e960a5daedf9.svg" alt="Create a stock screen">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Create a stock screen</div>
+                  <div class="sub font-size-13">Run queries on 10 years of financial data</div>
+                </div>
+              </a>
+            </li>
+            <li class="flex flex-align-center no-hover" style="padding: 4px 0;">
+              <div class="button button-primary premium-indicator flex flex-align-center">
+                <img src="https://cdn-static.screener.in/icons/crown.fb0d2413ee43.svg" alt="Premium icon" style="margin-right: 8px">
+                <span>Premium features</span>
+              </div>
+              <hr class="flex-grow" style="padding: 0; margin: 0;">
+            </li>
+            <li>
+              <a href="/hs/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/export.d623f0029933.svg" alt="Commodity Prices">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Commodity Prices</div>
+                  <div class="sub font-size-13">See prices and trends of over 10,000 commodities</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/people/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/shares.10acc20cb936.svg" alt="Search shareholders by name">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Search shareholders</div>
+                  <div class="sub font-size-13">See companies where a person holds over 1% of the shares</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/announcements/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/loudspeaker.88769927f6eb.svg" alt="Latest Announcements">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Latest Announcements</div>
+                  <div class="sub font-size-13">Browse, filter and set alerts for announcements.</div>
+                </div>
+              </a>
+            </li>
+            
+              <li style="padding: 16px;">
+                <a href="/premium/" class="button button-primary text-align-center" style="color: var(--white);
+                          padding: 10px 24px">Upgrade to premium</a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="show-from-tablet-landscape flex flex-gap-16" style="justify-content: flex-end;
+                flex: 1 1 400px">
+      <div class="search" id="desktop-search"><div class="has-addon left-addon dropdown-typeahead">
+  <i class="addon icon-search"></i>
+  <input aria-label="Search for a company" type="search" autocomplete="off" spellcheck="false" placeholder="Search for a company" class="u-full-width" data-company-search="true" style="margin-bottom: 0px;">
+<ul class="dropdown-content"></ul></div>
+</div>
+
+      
+        <div class="flex flex-gap-8" style="margin: 4px">
+          <a class="button account" href="/login/?">
+            <i class="icon-user-line blue-icon"></i>
+            Login
+          </a>
+          <a class="button account button-secondary" href="/register/?">Get free account</a>
+        </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+      </div>
+    </nav>
+
+    
+    
+
+    
+<div class="container flex-grow">
+  <div class="breadcrumb"></div>
+  <div class="flex flex-column-mobile">
+    <main class="flex-grow">
+      
+
+
+
+  
+
+
+
+
+
+
+      
+<div class="flex-row flex-space-between flex-align-center heading-spacing">
+  <h1 class="h2 margin-0">Stock screens</h1>
+  <a class="button button-primary" href="/screen/new/">Create new screen</a>
+</div>
+
+
+
+
+
+  <div class="card card-medium">
+    <h2 class="h3">Popular themes</h2>
+    <p class="sub">Popular investing themes</p>
+    <div class="screen-items">
+      
+      <a class="screen-item" href="/screens/6994/low-on-10-year-average-earnings/">
+        <div class="font-weight-500">
+          Low on 10 year average earnings
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Graham liked to value stocks based on average earnings of multiple years. This screen uses 10 year average earnings.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/97687/capacity-expansion/">
+        <div class="font-weight-500">
+          Capacity expansion
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies undergoing major capacity expansion.
+
+Companies where fixed assets have doubled over last 3 years or 
+fixed assets (including CWIP) have increased over 50% in last one year.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/126864/debt-reduction/">
+        <div class="font-weight-500">
+          Debt reduction...
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with expansion</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/214283/companies-creating-new-high/">
+        <div class="font-weight-500">
+          Companies creating new high
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with current price around 52 week high</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/226712/growth-without-dilution/">
+        <div class="font-weight-500">
+          Growth without dilution
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with less than 10% dilution over 10 years.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/343087/fii-buying/">
+        <div class="font-weight-500">
+          FII Buying
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">FII buying</p>
+      </a>
+      
+    </div>
+  </div>
+
+  <div class="card card-medium">
+    <h2 class="h3">Popular formulas</h2>
+    <p class="sub">Screening formulas based on books</p>
+    <div class="screen-items">
+      
+      <a class="screen-item" href="/screens/2/piotroski-scan/">
+        <div class="font-weight-500">
+          Piotroski Scan
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with Piotroski score of 9 which reflects nine criteria used to determine the strength of a firm's financial position. It is based on 3 most important criteria: Profitability, Leverage and operating efficiency. Please read more about it at: http://www.investopedia.com/terms/p/piotroski-score.asp</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/59/magic-formula/">
+        <div class="font-weight-500">
+          Magic Formula
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Based on famous Magic Formula.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/57601/coffee-can-portfolio/">
+        <div class="font-weight-500">
+          Coffee Can Portfolio
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Based on the book by Saurabh Mukherjee.</p>
+      </a>
+      
+    </div>
+  </div>
+
+  <div class="card card-medium">
+    <h2 class="h3">Price or Volume</h2>
+    <p class="sub">Screens based on price or volume action</p>
+    <div class="screen-items">
+      
+      <a class="screen-item" href="/screens/4928/darvas-scan/">
+        <div class="font-weight-500">
+          Darvas Scan
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Within 10% of 52w High, 100% of 52w Low, Volume &gt; 100000 &amp; Price &gt; 10</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/336509/golden-crossover/">
+        <div class="font-weight-500">
+          Golden Crossover
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">When 50 DMA moves above 200 DMA from below</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/338555/bearish-crossovers/">
+        <div class="font-weight-500">
+          Bearish Crossovers
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">50 day moving average cut the 200 day MA from Above</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/440753/price-volume-action/">
+        <div class="font-weight-500">
+          Price Volume Action
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies where weekly volumes have increased by more than 5x and price movement is positive.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/985942/rsi-oversold-stocks/">
+        <div class="font-weight-500">
+          RSI - Oversold Stocks
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Stocks with RSI of less than 30.</p>
+      </a>
+      
+    </div>
+  </div>
+
+  <div class="card card-medium">
+    <h2 class="h3">Quarterly results</h2>
+    <p class="sub">Screens around latest quarterly results</p>
+    <div class="screen-items">
+      
+      <a class="screen-item" href="/screens/1/the-bull-cartel/">
+        <div class="font-weight-500">
+          The Bull Cartel
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with a good quarterly growth. Specially made to keep a track of latest quarterly results. For best results, set an email alert for the screen.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/47/highest-yoy-quarterly-profit-growth/">
+        <div class="font-weight-500">
+          Highest YOY Quarterly profit growth
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Stocks with the highest Quarter on Quarter Growth in Profits.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/86/quarterly-growers/">
+        <div class="font-weight-500">
+          Quarterly Growers
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Q0&gt;Q1&gt;Q2&gt;Q3</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/50359/best-of-latest-quarter/">
+        <div class="font-weight-500">
+          Best of latest quarter
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies with the best latest quarterly numbers</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/325075/all-latest-quarterly-results/">
+        <div class="font-weight-500">
+          All latest quarterly results
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">All latest quarterly results with profits</p>
+      </a>
+      
+    </div>
+  </div>
+
+  <div class="card card-medium">
+    <h2 class="h3">Valuation Screens</h2>
+    <p class="sub">Screens based on stock valuations</p>
+    <div class="screen-items">
+      
+      <a class="screen-item" href="/screens/3/highest-dividend-yield-shares/">
+        <div class="font-weight-500">
+          Highest Dividend Yield Shares
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Stocks that have been consistently paying out dividend sorted on highest yield.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/49/loss-to-profit-companies/">
+        <div class="font-weight-500">
+          Loss to Profit Companies
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">Companies which had a turnaround and had quarterly results from loss to profit.</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/5772/fcf-yield/">
+        <div class="font-weight-500">
+          FCF yield
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">good fcf yield and growth</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/171936/high-ratio-of-market-value-of-investments/">
+        <div class="font-weight-500">
+          High Ratio of Market Value of Investments
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">High Ratio of Market Value of Investments</p>
+      </a>
+      
+      <a class="screen-item" href="/screens/276307/book-value-over-5-times-price/">
+        <div class="font-weight-500">
+          Book value over 5 times price
+          <i class="icon-right a smaller"></i>
+        </div>
+        <p class="sub font-size-12 margin-0 show-from-desktop">High book value</p>
+      </a>
+      
+    </div>
+  </div>
+
+
+
+
+<div class="card card-medium">
+  <h2 class="h3">Popular stock screens</h2>
+  <p class="sub">Popular screens commonly used by investors.</p>
+  <div class="screen-items">
+    
+    <a class="screen-item" href="/screens/1/the-bull-cartel/">
+      <div class="font-weight-500">
+        The Bull Cartel
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Companies with a good quarterly growth. Specially made to keep a track of latest quarterly results. For best results, set an email alert for the screen.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/343087/fii-buying/">
+      <div class="font-weight-500">
+        FII Buying
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">FII buying</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/178/growth-stocks/">
+      <div class="font-weight-500">
+        Growth Stocks
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">A stock screen to find stocks with high growth at reasonable price.
+
+G Factor is a score out of 10. It is based on recent quarterly growth of the company as well the quality of the earnings.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/59/magic-formula/">
+      <div class="font-weight-500">
+        Magic Formula
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Based on famous Magic Formula.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/6994/low-on-10-year-average-earnings/">
+      <div class="font-weight-500">
+        Low on 10 year average earnings
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Graham liked to value stocks based on average earnings of multiple years. This screen uses 10 year average earnings.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/3/highest-dividend-yield-shares/">
+      <div class="font-weight-500">
+        Highest Dividend Yield Shares
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Stocks that have been consistently paying out dividend sorted on highest yield.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/18/high-growth-high-roe-low-pe/">
+      <div class="font-weight-500">
+        High Growth High RoE  Low PE
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Undervalued companies</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/15310/benjamin-graham-and-warren-buffett/">
+      <div class="font-weight-500">
+        Benjamin Graham and Warren Buffett
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">In an article in ET, Dr Vikas V Gupta has explained the rigorous filter that he put the stocks through to identify the value stocks:
+
+Step 1: Filter out all companies with sales less than Rs 250 cr. Companies with sales lower than this are very small companies and might not have the business stability and access to finance that is required for a safe investment. This eliminates the basic business risk.
+
+Step 2: Filter out all companies with debt to equity greater than 30%. Companies with low leverage are safer.
+
+Step 3: Filter out all companies with interest coverage ratio of less than 4. Companies with high interest coverage ratio have a highly reduced bankruptcy risk.
+
+Step 4: Filter out all companies with ROE less than 15% since they are earning less than their cost of capital. High ROE companies have a robust business model, which generates increased earnings for the company typically.
+
+Step 5: Filter out all companies with PE ratio greater than 25 since they are too expensive even for a high-quality company. This enables us to pick companies which are relatively cheaper as against their actual value.
+
+He points out that applying these filters enables us to reduce and even eliminate a lot of fundamental risks while ensuring a robust business model, strong earning potential and a good buying price.
+
+After a detailed explanation of the entire methodology, Dr Vikas V Gupta explains that applying the strategy since 2003 delivered astounding returns with a CAGR of 29.1% and the money growing 20 times in 11 years!
+
+The 10 stocks that qualify under the Graham-Buffett formula are Zensar Technologies, Coal India Ltd, NMDC Ltd, Cairn India Ltd, V.S.T. Tillers Tractors Ltd, Tech Mahindra, Hexaware, Indraprastha Gas Ltd, Infosys Ltd, Engineers India Ltd
+
+Dr Vikas V Gupta explains that these 10 stocks illustrate that high quality companies with strong balance sheets also withstand the stringent Graham-Buffet screening process. He recommends that investors progressively form a portfolio having exposures to a few of these stocks for the current month after due diligence and having discussions with their trusted financial advisors.
+
+He has also recommended a maximum ceiling allocation of 5 per cent for any stock. An ideal portfolio should constitute about 20 stocks and not less than 10 stocks, he advices.</p>
+    </a>
+    
+    <a class="screen-item" href="/screens/49/loss-to-profit-companies/">
+      <div class="font-weight-500">
+        Loss to Profit Companies
+        <i class="icon-right a smaller"></i>
+      </div>
+      <p class="sub font-size-12 margin-0 show-from-desktop">Companies which had a turnaround and had quarterly results from loss to profit.</p>
+    </a>
+    
+  </div>
+  <div class="flex flex-end margin-top-16">
+    <a href="/screens/" class="button button-secondary">
+      Show all screens
+      <i class="icon-right"></i>
+    </a>
+  </div>
+</div>
+
+
+    </main>
+    <aside id="sidebar" class="flex-grow ">
+      
+<div class="card card-small">
+  
+  <h2 class="h3">Browse sectors</h2>
+  <div class="flex-row flex-gap-12">
+    
+    <a href="/company/compare/00000085/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Aerospace &amp; Defence</a>
+    
+    <a href="/company/compare/00000001/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Agro Chemicals</a>
+    
+    <a href="/company/compare/00000002/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Air Transport Service</a>
+    
+    <a href="/company/compare/00000003/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Alcoholic Beverages</a>
+    
+    <a href="/company/compare/00000004/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Auto Ancillaries</a>
+    
+    <a href="/company/compare/00000005/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Automobile</a>
+    
+    <a href="/company/compare/00000006/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Banks</a>
+    
+    <a href="/company/compare/00000066/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Bearings</a>
+    
+    <a href="/company/compare/00000007/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Cables</a>
+    
+    <a href="/company/compare/00000008/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Capital Goods - Electrical Equipment</a>
+    
+    <a href="/company/compare/00000009/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Capital Goods-Non Electrical Equipment</a>
+    
+    <a href="/company/compare/00000010/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Castings, Forgings &amp; Fastners</a>
+    
+    <a href="/company/compare/00000011/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Cement</a>
+    
+    <a href="/company/compare/00000012/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Cement - Products</a>
+    
+    <a href="/company/compare/00000013/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Ceramic Products</a>
+    
+    <a href="/company/compare/00000014/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Chemicals</a>
+    
+    <a href="/company/compare/00000015/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Computer Education</a>
+    
+    <a href="/company/compare/00000016/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Construction</a>
+    
+    <a href="/company/compare/00000017/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Consumer Durables</a>
+    
+    <a href="/company/compare/00000018/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Credit Rating Agencies</a>
+    
+    <a href="/company/compare/00000019/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Crude Oil &amp; Natural Gas</a>
+    
+    <a href="/company/compare/00000020/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Diamond, Gems and Jewellery</a>
+    
+    <a href="/company/compare/00000021/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Diversified</a>
+    
+    <a href="/company/compare/00000022/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Dry cells</a>
+    
+    <a href="/company/compare/00000080/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">E-Commerce/App based Aggregator</a>
+    
+    <a href="/company/compare/00000023/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Edible Oil</a>
+    
+    <a href="/company/compare/00000073/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Education</a>
+    
+    <a href="/company/compare/00000076/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Electronics</a>
+    
+    <a href="/company/compare/00000072/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Engineering</a>
+    
+    <a href="/company/compare/00000024/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Entertainment</a>
+    
+    <a href="/company/compare/00000069/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">ETF</a>
+    
+    <a href="/company/compare/00000071/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Ferro Alloys</a>
+    
+    <a href="/company/compare/00000025/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Fertilizers</a>
+    
+    <a href="/company/compare/00000026/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Finance</a>
+    
+    <a href="/company/compare/00000027/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">FMCG</a>
+    
+    <a href="/company/compare/00000028/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Gas Distribution</a>
+    
+    <a href="/company/compare/00000029/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Glass &amp; Glass Products</a>
+    
+    <a href="/company/compare/00000030/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Healthcare</a>
+    
+    <a href="/company/compare/00000031/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Hotels &amp; Restaurants</a>
+    
+    <a href="/company/compare/00000032/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Infrastructure Developers &amp; Operators</a>
+    
+    <a href="/company/compare/00000082/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Infrastructure Investment Trusts</a>
+    
+    <a href="/company/compare/00000067/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Insurance</a>
+    
+    <a href="/company/compare/00000033/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">IT - Hardware</a>
+    
+    <a href="/company/compare/00000034/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">IT - Software</a>
+    
+    <a href="/company/compare/00000035/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Leather</a>
+    
+    <a href="/company/compare/00000036/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Logistics</a>
+    
+    <a href="/company/compare/00000083/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Marine Port &amp; Services</a>
+    
+    <a href="/company/compare/00000037/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Media - Print/Television/Radio</a>
+    
+    <a href="/company/compare/00000038/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Mining &amp; Mineral products</a>
+    
+    <a href="/company/compare/00000039/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Miscellaneous</a>
+    
+    <a href="/company/compare/00000040/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Non Ferrous Metals</a>
+    
+    <a href="/company/compare/00000041/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Oil Drill/Allied</a>
+    
+    <a href="/company/compare/00000075/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Online Media</a>
+    
+    <a href="/company/compare/00000042/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Packaging</a>
+    
+    <a href="/company/compare/00000043/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Paints/Varnish</a>
+    
+    <a href="/company/compare/00000044/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Paper</a>
+    
+    <a href="/company/compare/00000045/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Petrochemicals</a>
+    
+    <a href="/company/compare/00000046/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Pharmaceuticals</a>
+    
+    <a href="/company/compare/00000047/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Plantation &amp; Plantation Products</a>
+    
+    <a href="/company/compare/00000048/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Plastic products</a>
+    
+    <a href="/company/compare/00000086/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Plywood Boards/Laminates</a>
+    
+    <a href="/company/compare/00000049/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Power Generation &amp; Distribution</a>
+    
+    <a href="/company/compare/00000079/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Power Infrastructure</a>
+    
+    <a href="/company/compare/00000074/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Printing &amp; Stationery</a>
+    
+    <a href="/company/compare/00000084/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Quick Service Restaurant</a>
+    
+    <a href="/company/compare/00000077/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Railways</a>
+    
+    <a href="/company/compare/00000050/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Readymade Garments/ Apparells</a>
+    
+    <a href="/company/compare/00000081/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Real Estate Investment Trusts</a>
+    
+    <a href="/company/compare/00000051/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Realty</a>
+    
+    <a href="/company/compare/00000052/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Refineries</a>
+    
+    <a href="/company/compare/00000053/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Refractories</a>
+    
+    <a href="/company/compare/00000054/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Retail</a>
+    
+    <a href="/company/compare/00000070/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Sanitaryware</a>
+    
+    <a href="/company/compare/00000055/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Ship Building</a>
+    
+    <a href="/company/compare/00000056/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Shipping</a>
+    
+    <a href="/company/compare/00000057/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Steel</a>
+    
+    <a href="/company/compare/00000058/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Stock/ Commodity Brokers</a>
+    
+    <a href="/company/compare/00000059/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Sugar</a>
+    
+    <a href="/company/compare/00000068/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Telecom-Handsets/Mobile</a>
+    
+    <a href="/company/compare/00000060/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Telecomm Equipment &amp; Infra Services</a>
+    
+    <a href="/company/compare/00000061/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Telecomm-Service</a>
+    
+    <a href="/company/compare/00000062/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Textiles</a>
+    
+    <a href="/company/compare/00000063/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Tobacco Products</a>
+    
+    <a href="/company/compare/00000064/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Trading</a>
+    
+    <a href="/company/compare/00000065/" class="bordered radius-6 padding-4-12 font-size-14 ink-700">Tyres</a>
+    
+  </div>
+  
+</div>
+
+    </aside>
+  </div>
+</div>
+
+
+    
+      
+
+<footer id="large-footer">
+  <div class="flex-row flex-space-between flex-column-tablet container no-print">
+    <div class="hide-from-tablet" style="margin-bottom: 16px;">
+      <img src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg" alt="Screener Logo" style="max-width: 120px" class="logo">
+    </div>
+
+    <div class="show-from-tablet" style="padding: 0 64px 0 0;">
+      <img src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg" alt="Screener Logo" style="max-width: 120px" class="logo">
+      <p class="font-size-19" style="font-weight: 500;">Stock analysis and screening tool</p>
+      <p class="sub">
+        Mittal Analytics Private Ltd © 2009-2024
+        <br>
+        Made with <i class="icon-heart red"></i> in India.
+      </p>
+      <p class="sub font-size-13">Data provided by C-MOTS Internet Technologies Pvt Ltd</p>
+      <p class="font-size-13 sub">
+        <a href="/guides/terms/" class="underline-link">Terms</a> &amp; <a href="/guides/privacy/" class="underline-link">Privacy</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-end flex-space-between flex-grow" style="max-width: 600px">
+      <div class="flex-grow">
+        <div class="title">Product</div>
+        <ul class="items">
+          <li>
+            <a href="/premium/">Premium</a>
+          </li>
+          <li>
+            <a href="/docs/changelog/">What's new?</a>
+          </li>
+          <li>
+            <a href="https://bit.ly/learnscreener">Learn</a>
+          </li>
+          <li>
+            <button class="a2hs button-secondary button-small hidden">
+              <i class="icon-flash"></i>
+              Install
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-grow">
+        <div class="title">Team</div>
+        <ul class="items">
+          <li>
+            <a href="/guides/about-us/">About us</a>
+          </li>
+          <li>
+            <a href="/support/">Support</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-grow">
+        <div class="title">Theme</div>
+        <ul class="items">
+          <li>
+            <button onclick="SetTheme('light')" aria-label="Set light theme" class="button-plain">
+              <i class="icon-sun"></i>
+              Light
+            </button>
+          </li>
+          <li>
+            <button onclick="SetTheme('dark')" aria-label="Set dark theme" class="button-plain">
+              <i class="icon-moon"></i>
+              Dark
+            </button>
+          </li>
+          <li>
+            <button onclick="SetTheme('auto')" aria-label="Set auto theme" class="button-plain">
+              <i class="icon-monitor"></i>
+              Auto
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hide-from-tablet">
+      <hr>
+      <p class="sub">Mittal Analytics Private Ltd © 2009-2024</p>
+      <p class="sub">Data provided by C-MOTS Internet Technologies Pvt Ltd</p>
+      <p class="sub">
+        <a href="/guides/terms/" class="underline-link">Terms</a>
+        &amp; <a href="/guides/privacy/" class="underline-link">Privacy</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+    
+
+    <!-- Important JS (which provide global objects)- check below too -->
+    <script src="https://cdn-static.screener.in/js/polyfill.c565c6038999.js"></script>
+    <script src="https://cdn-static.screener.in/js/dialog-polyfill.min.2b5bf9a032d2.js"></script>
+    <script src="https://cdn-static.screener.in/js/utils.8d2ec2b1b6b5.js"></script>
+    <script src="https://cdn-static.screener.in/js/modal.aec75371a318.js"></script>
+    <script src="https://cdn-static.screener.in/js/typeahead.8dcc9ac93685.js"></script>
+    <script src="https://cdn-static.screener.in/js/filter.component.5add9ef3b7a9.js"></script>
+
+    <!-- Independent JS scripts for page interactions -->
+    <script src="https://cdn-static.screener.in/js/navbar.3fe7f0f4a630.js"></script>
+    <script src="https://cdn-static.screener.in/js/company.search.f6e70e38248c.js"></script>
+    
+    
+
+    <!-- Service worker installer for PWA -->
+    <script src="https://cdn-static.screener.in/js/pwa.933118758337.js"></script>
+  
+
+</body>

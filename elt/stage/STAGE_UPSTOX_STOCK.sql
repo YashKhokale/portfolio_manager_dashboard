@@ -17,7 +17,7 @@ SELECT
 --    candles_data [5]::NUMERIC AS volume,
 	(CAST(candles_data [0]::text AS TIMESTAMP) AT TIME ZONE 'UTC')::DATE AS date,
 	PUBLIC.UDF_REPLACE_CRN(record_source) AS record_source,
-	load_date
+	load_date::DATE
 FROM
     load.load_stock,
     jsonb_array_elements(json_data -> 'data'->'candles') AS candles_data

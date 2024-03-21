@@ -11,11 +11,12 @@ import pprint
 from bsedata.bse import BSE
 from typing import Literal
 import os 
+from selenium.webdriver.chrome.options import Options
 
 class Portfolio_manager:
     def __init__(self) -> None:
-        self.username='yashkhokale19@gmail.com'
-        self.password='Test@1234'
+        self.screener_username='yashkhokale19@gmail.com'
+        self.screener_password='Test@1234'
         self.main_url="https://www.screener.in/"
         self.login_url=self.main_url + 'login/?'
         self.dbname="yash_db"
@@ -31,7 +32,7 @@ class Portfolio_manager:
         # self.latest_alpha_url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={self.symbol}.BSE&apikey=' + self.alpha_api_key
    
     def file_writer(self,filename,file_type, data):
-        with open(f'bucket/progress/{filename}.{file_type}','w') as file:
+        with open(f'/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/{filename}.{file_type}','w') as file:
             if file_type=='json':
                 file.write(json.dumps(data))
             else:
@@ -134,16 +135,26 @@ class Portfolio_manager:
             self.file_writer(f'hist_upstox_{data_freq}_{row[0]}_{date.today()}','json',json_data)
 
     def screener_webscrapping(self):
-        driver = webdriver.Chrome()
+        # ChromeDriver options to run in headless mode
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')  # Required for Linux
+        options.add_argument('--disable-dev-shm-usage')  # Required for Linux
+        # options = Options()
+        # options.headless = True
+        driver = webdriver.Chrome(options=options)
         driver.get(self.login_url)
         sleep(2)
         search_box = driver.find_element(By.ID, "id_username")
-        search_box.send_keys(self.username)
+        search_box.send_keys(self.screener_username)
         search_box2 = driver.find_element(By.ID, "id_password")
-        search_box2.send_keys(self.password)
+        search_box2.send_keys(self.screener_password)
         search_box2.submit()
+        # sleep(2)
         # driver.get('https://www.screener.in/explore/')
+        sleep(2)
         driver.get(self.main_url + 'screens/1545871/conservative/')
+        # driver.get('https://www.screener.in/login/?')
         sleep(2)
         print("logged in Screener!!!")
         try:
@@ -224,20 +235,17 @@ class Portfolio_manager:
         print(json_list)
         self.file_writer(f'latest_combined_{date.today()}','json',json_list)
 
-    def bse_api_call(self,code):
-        b = BSE()
-        print(b)
-        # Output:
-        # Driver Class for Bombay Stock Exchange (BSE)
+    # def bse_api_call(self,code):
+    #     b = BSE()
+    #     print(b)
+    #     # Output:
+    #     # Driver Class for Bombay Stock Exchange (BSE)
 
-        # to execute "updateScripCodes" on instantiation
-        b = BSE(update_codes = True)
-        data = b.getQuote(str(code))
-        # print(data)
-        return data
-
-    def visualize(self):
-        pass
+    #     # to execute "updateScripCodes" on instantiation
+    #     b = BSE(update_codes = True)
+    #     data = b.getQuote(str(code))
+    #     # print(data)
+    #     return data
 
     def truncateLoadTable(self):
         self.query_executor("TRUNCATE LOAD.LOAD_STOCK;")
@@ -301,11 +309,13 @@ class Portfolio_manager:
                     # self.query_executor(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
                     self.execute_pipeline(json_data,filename)
 
+    def test_func(self, word):
+        print(f'yash is great!!!{word}')
 
 
 x= Portfolio_manager()
 
-# x.screener_webscrapping()
+x.screener_webscrapping()
 # x.process_screener_data()
 # x.get_latest_bse_data()
 # x.db_ingestion()
@@ -313,5 +323,5 @@ x= Portfolio_manager()
 # x.visualize()
 # x.truncateLoadTable()
 # x.populateLoadTable()
-x.load_json_files('bucket/progress/')
-
+# x.load_json_files('bucket/progress/')
+# x.test_func('test!')

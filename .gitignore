@@ -1,0 +1,5 @@
+dags/chrome-linux64.zip
+dags/chrome-linux64/*
+dags/google-chrome-stable_current_amd64.deb
+dags/__pycache__/airflow_demo.cpython-310.pyc
+dags/__pycache__/demo.cpython-310.pyc
