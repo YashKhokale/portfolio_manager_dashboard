@@ -323,7 +323,7 @@ def test_id_func():
     webscrape >> data
     StageScreener=populateStageScreener()
     TLoadTable=truncateLoadTable()
-
+ 
     populateLoadScreener(data) >> StageScreener >> get_latest_bse_data() >>  TLoadTable
      
     stock_list = compare_stock_list() 
