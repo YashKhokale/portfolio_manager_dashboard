@@ -146,10 +146,10 @@ def test_id_func():
         file_writer(f"screener_content_{date.today()}",'html',html_content)
         # Close the WebDriver
         driver.quit()
-        return True
+        # return True
 
     @task
-    def process_screener_data(flag:bool):
+    def process_screener_data():
         with open(f"bucket/progress/screener_content_{date.today()}.html",'r') as file:
             html_content= file.read()
         # Parse the HTML content 
@@ -188,7 +188,7 @@ def test_id_func():
         my_pg_hook.run(file_reader('elt','stage','STAGE_SCREENER','sql'))
         return True
     @task
-    def compare_stock_list(flag:bool):
+    def compare_stock_list():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
 
         # Output:
@@ -225,7 +225,7 @@ def test_id_func():
     # Driver Class for Bombay Stock Exchange (BSE)  
         print('get_latest_bse_data()')
         # query=file_reader('ddl','biz','biz_stock_list','sql')
-        stock_list=get_query_result(query)
+        # stock_list=get_query_result(query)
         stock_list=my_pg_hook.get_records(sql=file_reader('ddl','biz','biz_stock_list','sql'))
         # Join the two lists
         # joined_list = stock_list + hist_list
@@ -318,15 +318,17 @@ def test_id_func():
 
     # truncateLoadTable() >> populateLoadTable() >> truncateStageTable() >> [populateStageUpstoxStock(), populateStageBSEStock()] >> stageCombinedViewStock() >> [populateHubStock(), populateHubDate()] >> populateLinkStockDate() >> [populateSatStock(), populateSatStockStatus()]
 
-    flag = webscrape_screener()
-    data = process_screener_data(flag) 
+    webscrape = webscrape_screener()
+    data = process_screener_data()
+    webscrape >> data
     StageScreener=populateStageScreener()
     TLoadTable=truncateLoadTable() 
     populateLoadScreener(data) >> StageScreener >> get_latest_bse_data() >>  TLoadTable 
-    
-    stock_list = compare_stock_list(StageScreener) 
+    stock_list = compare_stock_list() 
+    StageScreener >> stock_list
     [get_hist_upstox_data(stock_list,'month') ,get_hist_upstox_data(stock_list,'day') ]  >>  TLoadTable
-    
+
+    TLoadTable >> populateLoadTable() >> truncateStageTable() >> [populateStageUpstoxStock(), populateStageBSEStock()] >> stageCombinedViewStock() >> [populateHubStock(), populateHubDate()] >> populateLinkStockDate() >> [populateSatStock(), populateSatStockStatus()]
 
 test_id_func()
 
