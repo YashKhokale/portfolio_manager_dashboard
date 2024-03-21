@@ -322,8 +322,10 @@ def test_id_func():
     data = process_screener_data()
     webscrape >> data
     StageScreener=populateStageScreener()
-    TLoadTable=truncateLoadTable() 
-    populateLoadScreener(data) >> StageScreener >> get_latest_bse_data() >>  TLoadTable 
+    TLoadTable=truncateLoadTable()
+
+    populateLoadScreener(data) >> StageScreener >> get_latest_bse_data() >>  TLoadTable
+     
     stock_list = compare_stock_list() 
     StageScreener >> stock_list
     [get_hist_upstox_data(stock_list,'month') ,get_hist_upstox_data(stock_list,'day') ]  >>  TLoadTable
