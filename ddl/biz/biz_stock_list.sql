@@ -7,11 +7,11 @@ SELECT
 	eq2."ISIN No") AS ISIN_num,
 	stage_screener.name
 FROM
-	yash_schema.stage_screener
-LEFT JOIN yash_schema.equity AS eq1
+	STAGE.stage_screener
+LEFT JOIN LOAD.equity AS eq1
 ON
 	eq1."Security Id" = stage_screener.link
-LEFT JOIN yash_schema.equity AS eq2
+LEFT JOIN LOAD.equity AS eq2
 ON
 	eq2."Security Code"::TEXT = stage_screener.link
 WHERE

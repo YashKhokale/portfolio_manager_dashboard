@@ -1,12 +1,13 @@
 from datetime import datetime,timedelta,date
 from airflow.utils.dates import days_ago
+import pendulum
 # from airflow import DAG
 
 # from demo import Portfolio_manager
 from airflow.providers.postgres.hooks.postgres import PostgresHook
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator
 from airflow.models import Variable
-from airflow.decorators import dag,task
+from airflow.decorators import dag,task, task_group
 from typing import Literal
 import os 
 # import pandas as pd
@@ -33,7 +34,7 @@ default_args1={
 
 def file_reader(dir:Literal["ddl", "elt"],sub_dir:Literal["load", "stage""raw","biz"],filename,file_type):
     print(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}')
-    with open(f'{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
+    with open(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
         reader=file.read()
     return reader
 
@@ -102,8 +103,8 @@ def file_writer(filename,file_type, data):
     dag_id='test_id',
     description='test description',
     default_args=default_args1,
-    start_date= days_ago(1),
-    schedule_interval= '@daily',
+    start_date= pendulum.today('UTC').add(days=-1),
+    schedule= '@daily',
     tags=['first_dag','testing tags'])
 def test_id_func():
 
@@ -150,7 +151,7 @@ def test_id_func():
 
     @task
     def process_screener_data():
-        with open(f"bucket/progress/screener_content_{date.today()}.html",'r') as file:
+        with open(f"/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/screener_content_{date.today()}.html",'r') as file:
             html_content= file.read()
         # Parse the HTML content 
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -251,7 +252,6 @@ def test_id_func():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         my_pg_hook.run("TRUNCATE LOAD.LOAD_STOCK;")
 
-
     @task
     def populateLoadTable():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
@@ -262,7 +262,6 @@ def test_id_func():
                 with open(filepath, "r") as file:
                     json_data = json.load(file)
                 my_pg_hook.run(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
-
     @task
     def truncateStageTable():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
@@ -271,7 +270,6 @@ def test_id_func():
         # my_pg_hook.run("SELECT 123;")
         # query_executor("TRUNCATE STAGE.STAGE_UPSTOX_STOCK;")
         # query_executor("TRUNCATE STAGE.STAGE_BSE_STOCK;")
-
     @task
     def populateStageUpstoxStock():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
@@ -282,7 +280,6 @@ def test_id_func():
     def populateStageBSEStock():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         my_pg_hook.run(file_reader('elt','stage','STAGE_BSE_STOCK','sql'))
-
     @task  
     def stageCombinedViewStock():
         print("Demo STAGE_STOCK_COMBINED_VIEW!!!")
@@ -290,24 +287,20 @@ def test_id_func():
     @task    
     def populateHubStock():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-        my_pg_hook.run(file_reader('elt','raw','H_DATE','sql'))
-
+        my_pg_hook.run(file_reader('elt','raw','H_STOCK','sql'))
     @task  
     def populateHubDate():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-        my_pg_hook.run(file_reader('elt','raw','H_STOCK','sql'))
-
+        my_pg_hook.run(file_reader('elt','raw','H_DATE','sql'))
     @task  
     def populateLinkStockDate():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         my_pg_hook.run(file_reader('elt','raw','L_STOCK_DATE','sql'))
-
     @task  
     def populateSatStock():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_DATE-1','sql'))
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_DATE-2','sql'))
-
     @task  
     def populateSatStockStatus():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
@@ -316,21 +309,32 @@ def test_id_func():
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_STATUS-3','sql'))
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_STATUS-4','sql'))
 
-    # truncateLoadTable() >> populateLoadTable() >> truncateStageTable() >> [populateStageUpstoxStock(), populateStageBSEStock()] >> stageCombinedViewStock() >> [populateHubStock(), populateHubDate()] >> populateLinkStockDate() >> [populateSatStock(), populateSatStockStatus()]
 
-    webscrape = webscrape_screener()
-    data = process_screener_data()
-    webscrape >> data
-    StageScreener=populateStageScreener()
-    TLoadTable=truncateLoadTable()
- 
-    populateLoadScreener(data) >> StageScreener >> get_latest_bse_data() >>  TLoadTable
-     
-    stock_list = compare_stock_list() 
-    StageScreener >> stock_list
-    [get_hist_upstox_data(stock_list,'month') ,get_hist_upstox_data(stock_list,'day') ]  >>  TLoadTable
+    @task_group(group_id='LOAD_DW')
+    def LOAD_DW():    
+        truncateLoadTable() >> populateLoadTable() >> truncateStageTable() >> [populateStageUpstoxStock(), populateStageBSEStock()] >> stageCombinedViewStock() >> [populateHubStock(), populateHubDate()] >> populateLinkStockDate() >> [populateSatStock(), populateSatStockStatus()]
 
-    TLoadTable >> populateLoadTable() >> truncateStageTable() >> [populateStageUpstoxStock(), populateStageBSEStock()] >> stageCombinedViewStock() >> [populateHubStock(), populateHubDate()] >> populateLinkStockDate() >> [populateSatStock(), populateSatStockStatus()]
+    @task_group(group_id='Webscrape_and_stage_grp')
+    def Webscrape_and_stage_grp():    
+        webscrape = webscrape_screener()
+        process_data_func = process_screener_data()
+        StageScreener=populateStageScreener()
+        webscrape >> process_data_func >> populateLoadScreener(process_data_func) >> StageScreener
+    
+    @task_group(group_id='API_call')
+    def API_call():    
+        stock_list = compare_stock_list() 
+        stock_list >> [get_hist_upstox_data(stock_list,'month') ,get_hist_upstox_data(stock_list,'day') ]
+        get_latest_bse_data()
+
+
+    LOAD_DW_func_grp=LOAD_DW()
+    Webscrape_func_grp=Webscrape_and_stage_grp()
+    API_call_grp=API_call()
+
+    Webscrape_func_grp >> API_call_grp >>  LOAD_DW_func_grp
+    # LOAD_DW_func_grp
+
 
 test_id_func()
 
