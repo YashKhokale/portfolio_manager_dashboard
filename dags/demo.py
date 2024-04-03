@@ -251,9 +251,15 @@ class Portfolio_manager:
         self.query_executor("TRUNCATE LOAD.LOAD_STOCK;")
 
 
-    def populateLoadTable(self,json_data,filename):
-        # self.load_json_files('bucket/progress')
-        self.query_executor(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
+    def populateLoadTable(self):
+        # my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
+        dir='C:/Users/yashk/portfolio_manager_dashboard/bucket/progress/'
+        for filename in os.listdir(dir):
+            if filename.endswith(".json"):
+                filepath = os.path.join(dir,filename)
+                with open(filepath, "r") as file:
+                    json_data = json.load(file)
+                self.query_executor(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
 
     
     def truncateStageTable(self):
@@ -285,9 +291,9 @@ class Portfolio_manager:
         self.query_executor(self.file_reader('elt','raw','S_STOCK_STATUS-3','sql'))
         self.query_executor(self.file_reader('elt','raw','S_STOCK_STATUS-4','sql'))
 
-    def execute_pipeline(self,json_data,filename):
+    def execute_pipeline(self):
         self.truncateLoadTable()
-        self.populateLoadTable(json_data,filename)
+        self.populateLoadTable()
         self.truncateStageTable()
         self.populateStageUpstoxStock()
         self.populateStageBSEStock()        
@@ -297,17 +303,17 @@ class Portfolio_manager:
         self.populateSatStock()
         self.populateSatStockStatus()
 
-    def load_json_files(self,dir):
-        for filename in os.listdir(dir):
-            if filename.endswith(".json"):
-                filepath = os.path.join(dir,filename)
-                with open(filepath, "r") as file:
-                    json_data = json.load(file)
-                    # self.insert_json('load','load_stock', json_data,filename)
-                    self.json_data=json_data
-                    self.filename=filename
-                    # self.query_executor(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
-                    self.execute_pipeline(json_data,filename)
+    # def load_json_files(self,dir):
+    #     for filename in os.listdir(dir):
+    #         if filename.endswith(".json"):
+    #             filepath = os.path.join(dir,filename)
+    #             with open(filepath, "r") as file:
+    #                 json_data = json.load(file)
+    #                 # self.insert_json('load','load_stock', json_data,filename)
+    #                 self.json_data=json_data
+    #                 self.filename=filename
+    #                 # self.query_executor(f"INSERT INTO load.load_stock VALUES ('{json.dumps(json_data)}','{filename}');")
+    #                 self.execute_pipeline(json_data,filename)
 
     def test_func(self, word):
         print(f'yash is great!!!{word}')
@@ -315,7 +321,7 @@ class Portfolio_manager:
 
 x= Portfolio_manager()
 
-x.screener_webscrapping()
+# x.screener_webscrapping()
 # x.process_screener_data()
 # x.get_latest_bse_data()
 # x.db_ingestion()
@@ -325,3 +331,4 @@ x.screener_webscrapping()
 # x.populateLoadTable()
 # x.load_json_files('bucket/progress/')
 # x.test_func('test!')
+x.execute_pipeline()

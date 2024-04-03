@@ -11,16 +11,15 @@ SELECT DISTINCT
 	scv.LOAD_DATE,
 	'9999-01-01'::TIMESTAMP,
 	TRUE,
-  	STRING_AGG(SPLIT_PART(scv.record_source , '_', 2), '||') AS RECORD_SOURCE,
+	STRING_AGG(record_source) AS RECORD_SOURCE,
 	scv.PRICE
 FROM 
 	STAGE.STAGE_STOCK_COMBINED_VIEW scv
 LEFT JOIN
     RAW.S_STOCK_DATE ssd ON scv.STOCK_DATE_LINK_KEY = ssd.STOCK_DATE_LINK_KEY
-                         AND scv.PRICE = ssd.PRICE
+                         AND (scv.PRICE IS NULL OR scv.PRICE = ssd.PRICE)
                          AND ssd.IS_CURRENT
 WHERE
     ssd.STOCK_DATE_LINK_KEY IS NULL
-
 GROUP BY scv.STOCK_DATE_LINK_KEY,scv.LOAD_DATE,scv.PRICE
 ;

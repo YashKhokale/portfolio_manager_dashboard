@@ -1,3 +1,4 @@
+CREATE VIEW BIZ.SCREENER_VIEW AS
 SELECT
 	COALESCE(eq1."Security Id",
 	eq2."Security Id") AS symbol,
@@ -5,13 +6,15 @@ SELECT
 	eq2."Security Code") AS code,
 	COALESCE(eq1."ISIN No",
 	eq2."ISIN No") AS ISIN_num,
-	stage_screener.name
+	stage_screener.name,
+	stage_screener.cmp,
+	stage_screener.mar_cap
 FROM
 	STAGE.stage_screener
-LEFT JOIN LOAD.equity AS eq1
+LEFT JOIN yash_schema.equity AS eq1
 ON
 	eq1."Security Id" = stage_screener.link
-LEFT JOIN LOAD.equity AS eq2
+LEFT JOIN yash_schema.equity AS eq2
 ON
 	eq2."Security Code"::TEXT = stage_screener.link
 WHERE

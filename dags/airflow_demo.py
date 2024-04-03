@@ -1,7 +1,6 @@
 from datetime import datetime,timedelta,date
 from airflow.utils.dates import days_ago
 import pendulum
-# from airflow import DAG
 
 # from demo import Portfolio_manager
 from airflow.providers.postgres.hooks.postgres import PostgresHook
@@ -10,10 +9,8 @@ from airflow.models import Variable
 from airflow.decorators import dag,task, task_group
 from typing import Literal
 import os 
-# import pandas as pd
 import json
 import requests
-# import pprint
 from bsedata.bse import BSE
 import os 
 from selenium import webdriver
@@ -28,10 +25,6 @@ default_args1={
     'owner':'yash'
 }
 
-# def print_test():
-#     print('Testing 123!')
-
-
 def file_reader(dir:Literal["ddl", "elt"],sub_dir:Literal["load", "stage""raw","biz"],filename,file_type):
     print(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}')
     with open(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
@@ -44,60 +37,6 @@ def file_writer(filename,file_type, data):
             file.write(json.dumps(data))
         else:
             file.write(str(data))
-
-# def truncateStageTable():
-#     my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-#     my_pg_hook.run("TRUNCATE STAGE.STAGE_UPSTOX_STOCK;")
-#     my_pg_hook.run("TRUNCATE STAGE.STAGE_BSE_STOCK;")
-#     # my_pg_hook.run("SELECT 123;")
-#     # query_executor("TRUNCATE STAGE.STAGE_UPSTOX_STOCK;")
-#     # query_executor("TRUNCATE STAGE.STAGE_BSE_STOCK;")
-
-# def populateStageUpstoxStock():
-#     my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-#     # query_executor(file_reader('elt','stage','STAGE_UPSTOX_STOCK','sql'))
-#     my_pg_hook.run(file_reader('elt','stage','STAGE_UPSTOX_STOCK','sql'))
-
-
-# def populateStageBSEStock():
-#     query_executor(file_reader('elt','stage','STAGE_BSE_STOCK','sql'))
-
-# def populateHubStock():
-#     query_executor(file_reader('elt','raw','H_DATE','sql'))
-# def populateHubDate():
-#     query_executor(file_reader('elt','raw','H_STOCK','sql'))
-# def populateLinkStockDate():
-#     query_executor(file_reader('elt','raw','L_STOCK_DATE','sql'))
-# def populateSatStock():
-#     query_executor(file_reader('elt','raw','S_STOCK_DATE-1','sql'))
-#     query_executor(file_reader('elt','raw','S_STOCK_DATE-2','sql'))
-# def populateSatStockStatus():
-#     query_executor(file_reader('elt','raw','S_STOCK_STATUS-1','sql'))
-#     query_executor(file_reader('elt','raw','S_STOCK_STATUS-2','sql'))
-#     query_executor(file_reader('elt','raw','S_STOCK_STATUS-3','sql'))
-#     query_executor(file_reader('elt','raw','S_STOCK_STATUS-4','sql'))
-
-
-# x=Portfolio_manager()
-
-# with DAG(
-#     dag_id='test_id',
-#     description='test description',
-#     default_args=default_args1,
-#     start_date= days_ago(1),
-#     schedule_interval= '@daily',
-#     tags=['first_dag','testing tags']
-# ) as dag:
-#     truncateStageTable= PythonOperator(
-#         task_id='truncateStageTable',
-#         python_callable=truncateStageTable
-#     )
-#     populateStageUpstoxStock= PythonOperator(
-#         task_id='populateStageUpstoxStock',
-#         python_callable=populateStageUpstoxStock
-#     )
-
-# truncateStageTable >> populateStageUpstoxStock
 
 @dag(
     dag_id='test_id',
@@ -169,7 +108,6 @@ def test_id_func():
                 else:
                     cells.append(cell.get_text())  # Extract the text content
             data.append(cells)
-        # csv_db_ingestion('LOAD', 'LOAD_SCREENER', f'table_data_{date.today()}.csv',data)
         return data
 
     @task
@@ -191,31 +129,22 @@ def test_id_func():
     @task
     def compare_stock_list():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-
         # Output:
         # compare_stock_list ()
         print('compare_stock_list()')
         result=my_pg_hook.get_records(sql=file_reader('ddl','biz','Diff_stage_screener_biz_stock_data','sql'))
         print(result)
-        print(type(result))
+        # print(type(result))
         return result
-        # print(list(map(lambda x: x[0], result)))
-        # if len(result)>0:
-        #     get_hist_upstox_data(result,'day')
-        #     get_hist_upstox_data(result,'month')
-        # get_latest_bse_data(result)
 
     @task
     def get_hist_upstox_data(stock_list,data_freq):
-        # my_dict={'CREST': 'INE559D01011'}
-        # json_list=[]
         for row in stock_list:
             url = f'https://api.upstox.com/v2/historical-candle/BSE_EQ%7C{row[1]}/{data_freq}/{date.today()}'
             r = requests.get(url)
             sleep(2)
             json_data = r.json()
             print(url)
-            # json_list.append(json_data)
             file_writer(f'hist_upstox_{data_freq}_{row[0]}_{date.today()}','json',json_data)
 
     @task
@@ -232,15 +161,10 @@ def test_id_func():
         # joined_list = stock_list + hist_list
         json_list=[]
         for row in stock_list:
-            # if row[0] not in list(map(lambda x: x[0], exclude_list)):
-            # print(row[0])            
             b = BSE()
-            # print(b)
             # to execute "updateScripCodes" on instantiation
             b = BSE(update_codes = True)
             json_data = b.getQuote(str(row[1]))
-            # print(data)
-            # print((json_data))
             # Append new data to existing data
             json_list.append(json_data)
         print(json_list)
@@ -267,13 +191,9 @@ def test_id_func():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         my_pg_hook.run("TRUNCATE STAGE.STAGE_UPSTOX_STOCK;")
         my_pg_hook.run("TRUNCATE STAGE.STAGE_BSE_STOCK;")
-        # my_pg_hook.run("SELECT 123;")
-        # query_executor("TRUNCATE STAGE.STAGE_UPSTOX_STOCK;")
-        # query_executor("TRUNCATE STAGE.STAGE_BSE_STOCK;")
     @task
     def populateStageUpstoxStock():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-        # query_executor(file_reader('elt','stage','STAGE_UPSTOX_STOCK','sql'))
         my_pg_hook.run(file_reader('elt','stage','STAGE_UPSTOX_STOCK','sql'))
     
     @task
@@ -308,7 +228,6 @@ def test_id_func():
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_STATUS-2','sql'))
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_STATUS-3','sql'))
         my_pg_hook.run(file_reader('elt','raw','S_STOCK_STATUS-4','sql'))
-
 
     @task_group(group_id='LOAD_DW')
     def LOAD_DW():    
