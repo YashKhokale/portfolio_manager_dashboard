@@ -1,13 +1,13 @@
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
-import psycopg2
-import pandas as pd
+# import psycopg2
+# import pandas as pd
 from bs4 import BeautifulSoup
 from datetime import date
 import json
 import requests
-import pprint
+# import pprint
 from bsedata.bse import BSE
 from typing import Literal
 import os 
@@ -23,7 +23,7 @@ class Portfolio_manager:
         self.user="yash"
         self.password="test"
         # self.host="localhost",
-        self.host="172.29.0.1"
+        self.host="172.27.64.1"
         self.port="5433"
 
         # self.alpha_api_key='ZT190HZDN99BS851'
@@ -32,7 +32,7 @@ class Portfolio_manager:
         # self.latest_alpha_url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={self.symbol}.BSE&apikey=' + self.alpha_api_key
    
     def file_writer(self,filename,file_type, data):
-        with open(f'/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/{filename}.{file_type}','w') as file:
+        with open(f'{filename}.{file_type}','w') as file:
             if file_type=='json':
                 file.write(json.dumps(data))
             else:
@@ -43,7 +43,7 @@ class Portfolio_manager:
         with open(f'{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
             reader=file.read()
         return reader
-    
+ 
         # Function to insert JSON data into the table
     
     def query_executor(self, query):
@@ -127,12 +127,14 @@ class Portfolio_manager:
         # my_dict={'CREST': 'INE559D01011'}
         # json_list=[]
         for row in stock_list:
-            url = f'https://api.upstox.com/v2/historical-candle/BSE_EQ%7C{row[1]}/{data_freq}/{date.today()}'
-            r = requests.get(url)
-            json_data = r.json()
+            ISIN=self.get_query_result(F"SELECT stock_symbol, MAX(DATE) FROM RAW.l_stock_date  WHERE stock_symbol = '{row[0]}' GROUP BY stock_symbol;")
+            print(ISIN[0][1])
+            url = f'https://api.upstox.com/v2/historical-candle/BSE_EQ%7C{row[1]}/{data_freq}/{date.today()}/{ISIN[0][1]}'
+            # r = requests.get(url)
+            # json_data = r.json()
             print(url)
-            # json_list.append(json_data)
-            self.file_writer(f'hist_upstox_{data_freq}_{row[0]}_{date.today()}','json',json_data)
+            # # json_list.append(json_data)
+            # self.file_writer(f'hist_upstox_{data_freq}_{row[0]}_{date.today()}','json',json_data)
 
     def screener_webscrapping(self):
         # ChromeDriver options to run in headless mode
@@ -191,8 +193,8 @@ class Portfolio_manager:
             data.append(cells)
 
         # Convert the data to a DataFrame
-        df = pd.DataFrame(data)
-        df.to_csv(f'table_data_{date.today()}.csv', index=False)
+        # df = pd.DataFrame(data)
+        # df.to_csv(f'table_data_{date.today()}.csv', index=False)
         # df=df.fillna('demo')
         print(df)
         self.csv_db_ingestion('yash_schema', 'load_screener', f'table_data_{date.today()}.csv')
@@ -208,8 +210,8 @@ class Portfolio_manager:
         # print(list(map(lambda x: x[0], result)))
         if len(result)>0:
             self.get_hist_upstox_data(result,'day')
-            self.get_hist_upstox_data(result,'month')
-        self.get_latest_bse_data(result)
+            # self.get_hist_upstox_data(result,'month')
+        # self.get_latest_bse_data(result)
 
     def get_latest_bse_data(self,hist_list):
     # Output:
@@ -321,7 +323,7 @@ class Portfolio_manager:
 
 x= Portfolio_manager()
 
-# x.screener_webscrapping()
+x.screener_webscrapping()
 # x.process_screener_data()
 # x.get_latest_bse_data()
 # x.db_ingestion()
@@ -331,4 +333,4 @@ x= Portfolio_manager()
 # x.populateLoadTable()
 # x.load_json_files('bucket/progress/')
 # x.test_func('test!')
-x.execute_pipeline()
+# x.execute_pipeline()

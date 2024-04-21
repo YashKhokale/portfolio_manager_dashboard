@@ -1,0 +1,21 @@
+version: '3'
+services:
+  af_postgres:
+    container_name: af_postgres
+    image: debezium/postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+  airflow-scheduler:
+    container_name: airflow-scheduler
+    build:
+      context: ./my_docker/
+    ports:
+      - "8081:8080"
+    command: bash -c "airflow db init && airflow users create --username admin --password admin --firstname Admin --lastname Admin --role Admin --email admin@example.com && airflow scheduler"
+    depends_on:
+      - af_postgres
+    volumes:
+      - ./dags/airflow_demo.py:/opt/airflow/dags/airflow_demo.py
+      - ./dags/demo.py:/opt/airflow/dags/demo.py

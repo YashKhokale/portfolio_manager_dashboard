@@ -26,13 +26,13 @@ default_args1={
 }
 
 def file_reader(dir:Literal["ddl", "elt"],sub_dir:Literal["load", "stage""raw","biz"],filename,file_type):
-    print(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}')
-    with open(f'/home/yashkhokale/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
+    print(f'/opt/airflow/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}')
+    with open(f'/opt/airflow/portfolio_manager_dashboard/{dir}/{sub_dir}/{filename}.{file_type}','r') as file:
         reader=file.read()
     return reader
 
 def file_writer(filename,file_type, data):
-    with open(f'/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/{filename}.{file_type}','w') as file:
+    with open(f'/opt/airflow/portfolio_manager_dashboard/bucket/progress/{filename}.{file_type}','w') as file:
         if file_type=='json':
             file.write(json.dumps(data))
         else:
@@ -90,7 +90,7 @@ def test_id_func():
 
     @task
     def process_screener_data():
-        with open(f"/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/screener_content_{date.today()}.html",'r') as file:
+        with open(f"/opt/airflow/portfolio_manager_dashboard/bucket/progress/screener_content_{date.today()}.html",'r') as file:
             html_content= file.read()
         # Parse the HTML content 
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -139,8 +139,13 @@ def test_id_func():
 
     @task
     def get_hist_upstox_data(stock_list,data_freq):
+        my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
         for row in stock_list:
-            url = f'https://api.upstox.com/v2/historical-candle/BSE_EQ%7C{row[1]}/{data_freq}/{date.today()}'
+            ISIN=my_pg_hook.get_records(F"SELECT MAX(DATE) FROM RAW.l_stock_date  WHERE stock_symbol = '{row[0]}' GROUP BY stock_symbol;")
+            print(ISIN)
+            if len(ISIN)==0:
+                ISIN='2007-01-01'
+            url = f'https://api.upstox.com/v2/historical-candle/BSE_EQ%7C{row[1]}/{data_freq}/{date.today()}/{ISIN[0][0]}'
             r = requests.get(url)
             sleep(2)
             json_data = r.json()
@@ -179,7 +184,7 @@ def test_id_func():
     @task
     def populateLoadTable():
         my_pg_hook = PostgresHook(postgres_conn_id='my_postgres_conn')
-        dir='/home/yashkhokale/portfolio_manager_dashboard/bucket/progress/'
+        dir='/opt/airflow/portfolio_manager_dashboard/bucket/progress/'
         for filename in os.listdir(dir):
             if filename.endswith(".json"):
                 filepath = os.path.join(dir,filename)

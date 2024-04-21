@@ -16,7 +16,7 @@ SELECT
     candles_data [4]::NUMERIC AS price,
     TO_DATE(SUBSTRING(candles_data [0]::text FROM 2 FOR 10), 'YYYY-MM-DD') AS date,
 	PUBLIC.UDF_REPLACE_CRN(record_source) AS record_source,
-	load_date::DATE
+	load_date
 FROM
     load.load_stock,
     jsonb_array_elements(json_data -> 'data'->'candles') AS candles_data

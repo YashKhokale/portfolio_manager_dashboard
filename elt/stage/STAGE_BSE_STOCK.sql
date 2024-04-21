@@ -16,7 +16,7 @@ SELECT
 	(candles_data ->> 'currentValue')::NUMERIC AS price, 
 	TO_CHAR(TO_DATE(SPLIT_PART(candles_data ->> 'updatedOn' , ' | ',1), 'DD Mon YY'), 'YYYY-MM-DD')::DATE AS date,
 	record_source,
-	load_date::DATE 
+	load_date 
 FROM
     load.load_stock,
     jsonb_array_elements(json_data) AS candles_data
